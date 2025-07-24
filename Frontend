@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Video Generator</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      padding: 50px;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #4c51bf;
+    }
+    input[type="file"] {
+      margin: 20px 0;
+    }
+    button {
+      background-color: #4c51bf;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #5a67d8;
+    }
+    #loader {
+      display: none;
+      font-size: 1.5rem;
+      margin-top: 20px;
+      animation: pulse 1.5s infinite;
+      color: #6b46c1;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.3; }
+      50% { opacity: 1; }
+      100% { opacity: 0.3; }
+    }
+    #video-preview {
+      display: none;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>✨ AI Video Generator ✨</h1>
+  <input type="file" id="image-upload" multiple><br>
+  <button onclick="generateVideo()">Generate Video</button>
+
+  <div id="loader">🔮 Generating magic...</div>
+
+  <div id="video-preview">
+    <h2>Your AI Video:</h2>
+    <video controls width="320">
+      <source src="https://eunice-ai-studio.netlify.app/sample.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <script>
+    function generateVideo() {
+      document.getElementById("loader").style.display = "block";
+      document.getElementById("video-preview").style.display = "none";
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("video-preview").style.display = "block";
+      }, 5000);
+    }
+  </script>
+</bod
