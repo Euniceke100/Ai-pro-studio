@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apro Studio - AI Video Maker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center px-4">
+  <div class="max-w-xl w-full space-y-6 bg-gray-800 p-8 rounded-2xl shadow-lg">
+    <h1 class="text-3xl font-bold text-center">🎥 Apro Studio: AI Video Maker</h1>
+    <p class="text-sm text-gray-400 text-center">Upload your images & generate stunning AI-powered videos</p>
+
+    <label class="block text-sm mt-4 mb-1">Select Video Type:</label>
+    <select id="category" class="w-full bg-gray-700 text-white p-2 rounded">
+      <option>General</option>
+      <option>ASMR</option>
+      <option>Storytelling</option>
+      <option>Promo</option>
+      <option>Cat/Funny</option>
+      <option>Fashion</option>
+    </select>
+
+    <input type="file" id="imageUpload" accept="image/*" multiple class="w-full p-2 mt-2 rounded bg-gray-700 text-white" />
+
+    <div id="preview" class="grid grid-cols-3 gap-2 mt-4"></div>
+
+    <button id="generateBtn" class="w-full bg-purple-600 hover:bg-purple-700 py-2 rounded text-lg font-semibold">
+      Generate Video
+    </button>
+
+    <div id="status" class="text-center text-sm text-gray-300 hidden">Processing...</div>
+
+    <a id="downloadLink" href="#" download="apro-video.mp4" class="hidden block text-center mt-4 bg-green-600 py-2 rounded">
+      🎬 Download Video
+    </a>
+  </div>
+
+  <script>
+    const imageUpload = document.getElementById("imageUpload");
+    const preview = document.getElementById("preview");
+    const generateBtn = document.getElementById("generateBtn");
+    const status = document.getElementById("status");
+    const downloadLink = document.getElementById("downloadLink");
+    const category = document.getElementById("category");
+
+    imageUpload.addEventListener("change", () => {
+      preview.innerHTML = "";
+      [...imageUpload.files].forEach(file => {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.className = "rounded shadow";
+          preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    generateBtn.addEventListener("click", async () => {
+      if (!imageUpload.files.length) {
+        alert("Upload at least one image!");
+        return;
+      }
+
+      status.textContent = `Processing your ${category.value} video...`;
+      status.classList.remove("hidden");
+      generateBtn.disabled = true;
+
+      // Simulate backend call
+      setTimeout(() => {
+        status.textContent = "✅ Video generated! Ready to download.";
+        downloadLink.classList.remove("hidden");
+        downloadLink.href = "https://example.com/generated-video.mp4"; // Replace with real backend URL
+        generateBtn.disabled = false;
+      }, 4000);
+    });
+  </script>
+</body>
+</html>
